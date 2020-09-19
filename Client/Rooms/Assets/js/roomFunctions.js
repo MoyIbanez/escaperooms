@@ -25,9 +25,8 @@ function enterPassword() {
                 'Te quedas hasta que acabes',
                 'error'
             );
-            $("#keyWord").val('');
             setTimeout(function(){
-                $("#keyBox").hide();
+                location.reload();
             }, 2000);
 
         }

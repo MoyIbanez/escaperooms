@@ -24,10 +24,12 @@ function enterPassword() {
                 'Chale, así no era, mai',
                 'Te quedas hasta que acabes',
                 'error'
-              )
-              setTimeout(function(){
+            );
+            $("#keyWord").val('');
+            setTimeout(function(){
                 $("#keyBox").hide();
-                }, 2000);
+            }, 2000);
+
         }
     });
 

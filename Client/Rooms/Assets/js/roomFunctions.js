@@ -23,8 +23,11 @@ function enterPassword() {
             Swal.fire(
                 'Chale, así no era, mai',
                 'Te quedas hasta que acabes',
-                'success'
+                'error'
               )
+              setTimeout(function(){
+                $("#keyBox").hide();
+                }, 2000);
         }
     });
 

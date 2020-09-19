@@ -8,16 +8,23 @@ function enterPassword() {
     $("#lockButton").html('<i class="fas fa-key"></i>');
 
     var userKey = $("#keyWord").val();
+    var chances = 5;
 
     $("#lockButton").click(function() {
-        if (userKey == 'abc') {
-            console.log("Success");
+        if (userKey == "abc") {
             $("#lockButton").html('<i class="fas fa-lock-open"></i>');
-            $("#lockBox").attr("class", "is-valid");
-            $("#lockBox").attr("class", "success");
-        } else {
+            Swal.fire(
+                'Íreloooo',
+                'Vamos al siguiente cuarto',
+                'success'
+              )
+        } else{
             $("#lockButton").html('<i class="fas fa-lock"></i>');
-            $("#lockBox").attr("class", "fail");
+            Swal.fire(
+                'Chale, así no era, mai',
+                'Te quedas hasta que acabes',
+                'success'
+              )
         }
     });
 

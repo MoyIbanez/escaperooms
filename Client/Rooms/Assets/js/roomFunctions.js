@@ -1,35 +1,72 @@
 $(document).ready(function() {
+    roomEngine();
     $("#keyBox").hide();
 });
 
-function enterPassword() {
+var togglePass = false;
+var roomData
 
-    $("#keyBox").show();
-    $("#lockButton").html('<i class="fas fa-key"></i>');
+function roomEngine(room) {
 
-    var userKey = $("#keyWord").val();
-    var chances = 5;
+    //Remove on room selection.
+    if(!room) {
+        room = 1;
+    }
 
-    $("#lockButton").click(function() {
-        if (userKey == "abc") {
-            $("#lockButton").html('<i class="fas fa-lock-open"></i>');
-            Swal.fire(
-                'Íreloooo',
-                'Vamos al siguiente cuarto',
-                'success'
-              )
-        } else{
-            $("#lockButton").html('<i class="fas fa-lock"></i>');
-            Swal.fire(
-                'Chale, así no era, mai',
-                'Te quedas hasta que acabes',
-                'error'
-            );
-            setTimeout(function(){
-                location.reload();
-            }, 2000);
-
-        }
-    });
+    var baseURL = "http://localhost/escaperooms/escaperooms/api/post.php?roomID="
+    $.ajax({
+        url: baseURL + room,
+        type : 'GET'
+      })
+        .done(function( data ) {
+            roomData = JSON.parse(data);
+            console.log(roomData);
+            $("#roomTitle").html(roomData.roomName);
+            $("#roomDescription").html(roomData.roomDescription);
+            $("#roomDescription").html(roomData.roomDescription);
+            $("#roomContent").html(roomData.roomContent);
+        });
 
 }
+
+$("#keyWord").keyup(function(){
+
+    if($("#keyWord").val().length > 0){
+        $("#lockButton").html('<i class="fas fa-key"></i>');
+    }else{
+        $("#lockButton").html('<i class="fas fa-times"></i>');
+    }
+
+});
+
+function showPassBox(){
+    togglePass = true;
+    $("#keyBox").show();
+    !this.togglePass;
+
+    $("#lockButton").html('<i class="fas fa-times"></i>');
+    
+}
+
+function hidePassBox(){
+
+    if($("#keyWord").val() == roomData.roomPassword){
+        alert(roomData.roomPassword + " Es correcto!");
+        roomEngine(roomData.nextRoom);
+    }
+    togglePass = false;
+    $("#keyBox").hide();
+    !this.togglePass;
+    $("#keyWord").val("");
+    $("#lockButton").html('<i class="fas fa-lock"></i>');
+}
+
+$("#lockButton").click(function(){
+
+    if (togglePass == false){
+        showPassBox();
+    }else if(togglePass == true){
+        hidePassBox();
+    }
+
+});

@@ -5,9 +5,7 @@ include "utils.php";
 
 $dbConn =  connect($db);
 
-/*
-  listar todos los posts o solo uno
- */
+//Get Room(s)
 if ($_SERVER['REQUEST_METHOD'] == 'GET')
 {
     if (isset($_GET['roomID']))
@@ -31,15 +29,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
 	}
 }
 
-/*
-// Crear un nuevo post
+
+// New Room
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     $input = $_POST;
-    $sql = "INSERT INTO posts
-          (title, status, content, user_id)
+    $sql = "INSERT INTO rooms
+          (roomUIDK, roomSection, roomNumber, roomName, roomDescription, roomContent, roomPassword, nextRoom)
           VALUES
-          (:title, :status, :content, :user_id)";
+          (:roomUIDK, :roomSection, :roomNumber, :roomName, :roomDescription, :roomContent, :roomPassword, :nextRoom)";
     $statement = $dbConn->prepare($sql);
     bindAllValues($statement, $input);
     $statement->execute();
@@ -52,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       exit();
 	 }
 }
-
+/*
 //Borrar
 if ($_SERVER['REQUEST_METHOD'] == 'DELETE')
 {
